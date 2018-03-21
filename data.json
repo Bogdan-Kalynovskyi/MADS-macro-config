@@ -1,0 +1,21 @@
+json_data = {
+	"bg1":"img/BG 1tree.png",
+  "bg2": "img/BG 2tree.png",
+  "bg3": "img/BG 3tree.png",
+  "bg4": "img/BG 4tree end.png",
+  "tap": "img/CTA button SIGN.png",
+  "water_can": "img/Wateringcan.png",
+  "water_can_w": "img/can_and_water.png",
+  "bottle_empty": "img/bottle smrsby.png",
+  "drag": "img/CTA copy Drag Apple.png",
+  "logo": "img/logo smrsby.png",
+	"tap_can_up": "img/arrow to can up.png",
+  "apple": "img/apple.png",
+  "arrow": "img/arrow.png",
+	"tapcan": "img/arrow to can.png",
+  "live": "img/CTA copy Live your magic.png",
+  "install": "img/CTA install button.png",
+  "share": "img/share your photo btn.png",
+  "package": "img/Package bottle smrsby.png",
+	"upload": "img/frame button.png"
+}

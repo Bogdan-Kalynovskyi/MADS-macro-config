@@ -1,0 +1,43 @@
+#rma-widget, #ad-container {
+  width: 320px;
+  height: 480px;
+}
+
+#ad-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+#ad-background {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#ad-heading {
+  margin: 0.4em;
+  text-align: center;
+  font-size: 1.6em;
+  z-index: 10;
+}
+
+#ad-description {
+  margin: 1em;
+  padding: 0;
+  z-index: 10;
+}
+
+#ad-cta {
+  margin: 1em;
+  border-radius: 3px;
+  background: #ff6655;
+  color: white;
+  padding: 8px 12px;
+  text-decoration: none;
+  z-index: 10;
+}
