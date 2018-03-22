@@ -5,63 +5,56 @@ const day = date.toLocaleString(language, {  weekday: 'long' });
 const screenWidth = window.innerWidth;
 const device = screenWidth < 756 ? 'Mobile' : (screenWidth < 1024 ? 'Tablet' : 'Desktop');
 const os = navigator.platform;
-var country = "",
-    city = "",
-    weather = "";
 
 const getEnvironmentPromise = new Promise((resolve, reject) => {
   try {
-    var xmlhttpLocation = new XMLHttpRequest();
+    let request = new XMLHttpRequest();
 
-    xmlhttpLocation.onreadystatechange = function() {
+    request.onreadystatechange = function() {
+      if (request.readyState === 4 && request.status === 200) {
 
-      if (this.readyState == 4 && this.status == 200) {
-
-        var locationResponse = JSON.parse(this.responseText);
-        city = locationResponse.city;
-        country = locationResponse.city;
+        const locationResponse = JSON.parse(request.responseText);
+        const city = locationResponse.city;
+        const country = locationResponse.city;
 
         try {
-          var xmlhttpWeather = new XMLHttpRequest();
+          request.onreadystatechange = function() {
+            if (request.readyState === 4 && request.status === 200) {
 
-          xmlhttpWeather.onreadystatechange = function() {
+              const weatherResponse = JSON.parse(request.response);
+              debugger;
+              const weather = "Temperature: " + weatherResponse.main.temp + ". " + weatherResponse.weather[0].main;
 
-            if (this.readyState == 4 && this.status == 200) {
-
-              var weatherResponse = JSON.parse(this.response);
-              weather = "Temperature: " + weatherResponse.main.temp + ". " + weatherResponse.weather[0].main;
-              alert(weather);
+              resolve({
+                  time,
+                  day,
+                  language,
+                  device,
+                  os,
+                  country,
+                  city,
+                  weather
+              });
 
             }
           };
 
-          xmlhttpWeather.open('GET', "http://api.openweathermap.org/data/2.5/weather?" +
+          request.open('GET', "http://api.openweathermap.org/data/2.5/weather?" +
             "lat=" + locationResponse.lat + '&' +
             "lon=" + locationResponse.lon + '&' +
             "units=metric" + '&' +
             "APPID=05233ff759e21c294b058dfe648b690b",
             true);
-          xmlhttpWeather.send();
+          request.send();
         }
         catch (e) {
           reject(e);
         }
-
-        resolve({
-                time,
-                day,
-                language,
-                device,
-                os,
-                country,
-                city,
-                weather
-              });
       }
     };
 
-    xmlhttpLocation.open('GET', 'http://ip-api.com/json/', true);
-    xmlhttpLocation.send();
+    request.open('GET', 'http://ip-api.com/json/', true);
+    request.send();
   }
   catch (e) {
     reject(e);
