@@ -1,4 +1,4 @@
-{
+export default {
 	"creative": {
 		"language": {
 			"English": {
