@@ -34,18 +34,24 @@
 			"Other": "McDonald"
 		}
 	},
-	"description": {
-		"Other": "It's {{day}}! THIS will always be english"
-	},
+	"description": "It's {{day}}! THIS will always be english",
 	"cta": {
-		"device&&weather": {
-			"Mobile&&Raining": {
-				"label": "Call Us Now",
-				"url": "tel:1300300300"
+		"os": {
+			"iOS": {
+				"label": "20% discount for Apple lovers!",
+				"url": "tel:00000"
 			},
 			"Other": {
-				"label": "Order Now",
-				"url": "https://www.mcdonalds.com/us/en-us/mcdelivery.html"
+				"device&&weather": {
+					"Mobile&&Raining": {
+						"label": "Call Us Now",
+						"url": "tel:1300300300"
+					},
+					"Other": {
+						"label": "Order Now",
+						"url": "https://www.mcdonalds.com/us/en-us/mcdelivery.html"
+					}
+				}
 			}
 		}
 	}
