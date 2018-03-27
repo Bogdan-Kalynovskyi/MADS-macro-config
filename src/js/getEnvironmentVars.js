@@ -22,7 +22,6 @@ const getEnvironmentPromise = new Promise((resolve, reject) => {
             if (request.readyState === 4 && request.status === 200) {
 
               const weatherResponse = JSON.parse(request.response);
-              debugger;
               const weather = "Temperature: " + weatherResponse.main.temp + ". " + weatherResponse.weather[0].main;
 
               resolve({
