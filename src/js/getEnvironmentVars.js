@@ -1,10 +1,21 @@
 const date = new Date();
 const time = date.toLocaleString(language, { hour: 'numeric', hour12: true });
-const language = navigator.language;
+const language = (navigator.language || navigator.userLanguage).split('-')[0];
 const day = date.toLocaleString(language, {  weekday: 'long' });
 const screenWidth = window.innerWidth;
-const device = screenWidth < 756 ? 'Mobile' : (screenWidth < 1024 ? 'Tablet' : 'Desktop');
+const device = screenWidth < 756 ? 'Mobile' : (screenWidth <= 1024 ? 'Tablet' : 'Desktop');
 const os = navigator.platform;
+
+
+function weatherDictionary(inputWeather) {
+    const map = {
+        'Clouds': 'Cloudy',
+        'Clear': 'Sunny',
+        'Rain': 'Rainy'
+    };
+    return map[inputWeather] || '?';
+}
+
 
 const getEnvironmentPromise = new Promise((resolve, reject) => {
   try {
@@ -22,8 +33,7 @@ const getEnvironmentPromise = new Promise((resolve, reject) => {
             if (request.readyState === 4 && request.status === 200) {
 
               const weatherResponse = JSON.parse(request.response);
-              debugger;
-              const weather = "Temperature: " + weatherResponse.main.temp + ". " + weatherResponse.weather[0].main;
+              const weather = weatherDictionary(weatherResponse.weather[0].main);
 
               resolve({
                   time,

@@ -1,11 +1,11 @@
 export default {
 	"creative": {
 		"language": {
-			"English": {
+			"en": {
 				"type": "image",
 				"url": "https://rmarepo.richmediaads.com/monday_morning_en.jpg"
 			},
-			"Japanese": {
+			"jp": {
 				"type": "image",
 				"url": "https://rmarepo.richmediaads.com/monday_morning_jp.jpg"
 			},
@@ -17,7 +17,7 @@ export default {
 	},
 	"headline": {
 		"language": {
-			"English": {
+			"en": {
 				"city": {
 					"Belfast": {
 						"weather&&day": { // attention here!
@@ -27,10 +27,11 @@ export default {
 							"ANY&&Sunday": "weekend",
 							"Other": "other"
 						}
-					}
+					},
+					"Other": "orthe city"
 				}
 			},
-			"Japanese": "マクドナルド",
+			"jp": "マクドナルド",
 			"Other": "McDonald"
 		}
 	},
@@ -38,17 +39,17 @@ export default {
 	"cta": {
 		"os": {
 			"iOS": {
-				"label": "20% discount for Apple lovers!",
+				"text": "20% discount for Apple lovers!",
 				"url": "tel:00000"
 			},
 			"Other": {
 				"device&&weather": {
 					"Mobile&&Raining": {
-						"label": "Call Us Now",
+						"text": "Call Us Now",
 						"url": "tel:1300300300"
 					},
 					"Other": {
-						"label": "Order Now",
+						"text": "Order Now",
 						"url": "https://www.mcdonalds.com/us/en-us/mcdelivery.html"
 					}
 				}

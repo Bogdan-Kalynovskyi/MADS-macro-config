@@ -1,20 +1,22 @@
 /* eslint-disable no-console */
 /* global window, XMLHttpRequest */
 import Mads from 'mads-custom';
-import {jsonParamsExtractor} from './js/replaceInJson';
+import {getText, getParamsFromJson, macrosInParams} from './js/replaceInJson';
 import getEnvVars from './js/getEnvironmentVars'
 
 import './main.css';
 
-import json from './js/dco.js';
+import json from './config.js';
 
 
 class AdUnit extends Mads {
 
   constructor() {
     super();
-    getEnvVars.then(envVars => {
-      this.params = jsonParamsExtractor(json, envVars);
+    this.json = null;
+    getEnvVars.then(conditions => {
+      this.params = getParamsFromJson(json, conditions);
+      this.params = macrosInParams(this.params, conditions);
       this.finalRender();
     });
   }
@@ -35,9 +37,9 @@ class AdUnit extends Mads {
 
     document.getElementById('ad-container').innerHTML = `
       ${backgroundNode}
-      <h1 id="ad-heading">${this.params.headline}</h1>
-      <p id="ad-description">${this.params.description}</p>
-      <a id="ad-cta" href="${this.params.cta.url}">${this.params.cta.label}</a>
+      <h1 id="ad-heading">${getText(this.params.headline)}</h1>
+      <p id="ad-description">${getText(this.params.description)}</p>
+      <a id="ad-cta" href="${this.params.cta.url}">${getText(this.params.cta)}</a>
     `;
   }
 
