@@ -3,15 +3,15 @@ export default {
 		"language": {
 			"en": {
 				"type": "image",
-				"url": "https://rmarepo.richmediaads.com/monday_morning_en.jpg"
+				"url": "./img/mc.jpg"
 			},
 			"jp": {
 				"type": "image",
-				"url": "https://rmarepo.richmediaads.com/monday_morning_jp.jpg"
+        "url": "./img/mc.jpg"
 			},
 			"Other": {
-				"type": "video",
-				"url": "https://rmarepo.richmediaads.com/everything_else.mp4"
+				"type": "image",
+        "url": "./img/mc.jpg"
 			}
 		}
 	},
@@ -28,7 +28,7 @@ export default {
 							"Other": "other"
 						}
 					},
-					"Other": "orthe city"
+					"Other": ["random1", "random2", "random3"]
 				}
 			},
 			"jp": "マクドナルド",

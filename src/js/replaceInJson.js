@@ -21,17 +21,24 @@ export function getParamsFromJson(json, conditions) {
         }
         for (const value in branch) {
             const valueParts = value.split('&&');
-            for (var i = 0; i < valueParts.length; i++) {
-                const part = valueParts[i];
-                if (part === 'ANY' || part === conditionParts[i]) {
-                    break;
-                }
-            }
-            if (i < valueParts.length) {
+            if (conditionCheck(conditionParts, valueParts)) {
                 return recursive(branch[value]);
             }
         }
         return eventuallyOther(branch);
+    }
+
+    function conditionCheck(conditionParts, valueParts) {
+      for (let i = 0; i < conditionParts.length; i++) {
+        const valuePart = valueParts[i];
+        if (valuePart !== 'ANY') {
+          const orParts = valuePart.split('|');
+          if (orParts.indexOf(conditionParts[i]) === -1) {
+            return false;
+          }
+        }
+      }
+      return true;
     }
 
     function eventuallyOther(branch) {
@@ -80,10 +87,19 @@ export function macrosInParams(params, conditions) {
         return string;
     };
 
+    function getRandomItem(array) {
+        const randomIndex = Math.floor(Math.random() * array.length);
+        return replaceMacros(array[randomIndex]);
+    }
+
+
     for (const paramName in params) {
         const param = params[paramName];
         if (typeof param === "string") {
             params[paramName] = replaceMacros(param);
+        }
+        else if (param instanceof Array) {
+            params[paramName] = getRandomItem(param);
         }
         else {
             const text = param.text;
@@ -91,7 +107,7 @@ export function macrosInParams(params, conditions) {
                 params[paramName].text = replaceMacros(text);
             }
             else if (text instanceof Array) {
-                params[paramName].text = replaceMacros(text[Math.floor(Math.random() * text.length)]);
+                params[paramName].text = getRandomItem(text);
             }
         }
     }

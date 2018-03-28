@@ -28,18 +28,26 @@ class AdUnit extends Mads {
   }
 
   finalRender() {
+    const style = {};
+    for (let i in this.params) {
+      style[i] = this.params[i].style ? ` style="${this.params[i].style}"` : '';
+    }
+
     const backgroundNode = this.params.creative.type === "image" ?
-      `<img id="ad-background" src="${this.params.creative.url}" alt="">`
+      `<img id="ad-background" src="${this.params.creative.url}" alt=""${style.creative}>`
       :
-      `<video id="ad-background" width="100%" height="100%" autoplay>
+      `<video id="ad-background" width="100%" height="100%" autoplay${style.creative}>
         <source src="${this.params.creative.url}">
       </video>`;
 
+
     document.getElementById('ad-container').innerHTML = `
       ${backgroundNode}
-      <h1 id="ad-heading">${getText(this.params.headline)}</h1>
-      <p id="ad-description">${getText(this.params.description)}</p>
-      <a id="ad-cta" href="${this.params.cta.url}">${getText(this.params.cta)}</a>
+      <h1 id="ad-heading"${style.heading}>${getText(this.params.headline)}</h1>
+      <p id="ad-description"${style.description}>${getText(this.params.description)}</p>
+      <div style="text-align: center">
+        <a id="ad-cta" href="${this.params.cta.url}">${style.cta}${getText(this.params.cta)}</a>
+      </div>
     `;
   }
 
@@ -71,6 +79,3 @@ class AdUnit extends Mads {
 }
 
 window.ad = new AdUnit();
-
-
-window.AdUnit = AdUnit;
