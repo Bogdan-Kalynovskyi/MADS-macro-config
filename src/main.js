@@ -5,27 +5,54 @@ import {getText, getParamsFromJson, macrosInParams} from './js/replaceInJson';
 import getEnvVars from './js/getEnvironmentVars'
 
 import './main.css';
-
 import json from './config.js';
 
 
 class AdUnit extends Mads {
 
-  constructor() {
+  constructor(getLocally) {
     super();
     this.json = null;
-    getEnvVars.then(conditions => {
+    if (getLocally) {
+      const conditions = {};
+      const inputs = document.querySelectorAll('input, select');
+      for (const input of inputs) {
+        const conditionName = input.id;
+        conditions[conditionName] = input.value;
+      }
+      setTimeout(() => this.doInit(conditions), 300);
+    }
+    else {
+      getEnvVars.then(conditions => {
+        this.doInit(conditions);
+        this.initForm(conditions);
+      });
+    }
+  }
+
+
+  doInit(conditions) {
       this.params = getParamsFromJson(json, conditions);
       this.params = macrosInParams(this.params, conditions);
       this.finalRender();
-    });
   }
+
+
+  initForm(conditions) {
+    try {
+        for (let i in conditions) {
+            document.getElementById(i).value = conditions[i];
+        }
+    } catch (e) {}
+  }
+
 
   render() {
     return `
       <div id="ad-container"></div>
     `;
   }
+
 
   finalRender() {
     const style = {};
@@ -43,14 +70,13 @@ class AdUnit extends Mads {
 
     document.getElementById('ad-container').innerHTML = `
       ${backgroundNode}
-      <h1 id="ad-heading"${style.heading}>${getText(this.params.headline)}</h1>
+      <h1 id="ad-headline"${style.headline}>${getText(this.params.headline)}</h1>
       <p id="ad-description"${style.description}>${getText(this.params.description)}</p>
-      <div style="text-align: center">
-        <a id="ad-cta" href="${this.params.cta.url}">${style.cta}${getText(this.params.cta)}</a>
-      </div>
+      <a id="ad-cta" href="${this.params.cta.url}">${style.cta}${getText(this.params.cta)}</a>
     `;
   }
 
+  // todo put styles here
   style() {
     return '';
   }
@@ -79,3 +105,6 @@ class AdUnit extends Mads {
 }
 
 window.ad = new AdUnit();
+
+
+window.AdUnit = AdUnit;

@@ -28,15 +28,3 @@ render
 ➜  npm run build or yarn run build
 ```
 
-
-
-## Changelog 
-
-- 1.0 - old version 
-- 2.0 - webpack added
-
-## Credits
-
-**Ninjoe** Email: _joequah1@gmail.com_ Skype: _joequah1_
-
-**Jeff** Email: _iam@jeffersonpaltera.com_

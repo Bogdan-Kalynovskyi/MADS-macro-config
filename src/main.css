@@ -1,6 +1,11 @@
+label {
+  width: 150px;
+  display: inline-block;
+}
+
 #rma-widget, #ad-container {
   width: 320px;
-  height: 480px;
+  height: 300px;
 }
 
 #ad-container {
@@ -11,7 +16,7 @@
 
 #ad-background {
   width: 320px;
-  height: 480px;
+  height: 300px;
   position: absolute;
   left: 0;
   right: 0;
@@ -21,7 +26,7 @@
   pointer-events: none;
 }
 
-#ad-heading {
+#ad-headline {
   margin: 0.4em;
   text-align: center;
   font-size: 1.6em;
@@ -30,6 +35,7 @@
 }
 
 #ad-description {
+  text-shadow: 0.25px 0.75px 0 #fff;
   margin: 1em;
   padding: 0;
   position: relative;
@@ -37,12 +43,14 @@
 }
 
 #ad-cta {
-  margin: 1em;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 1em;
   border-radius: 3px;
   background: #ff6655;
   color: white;
   padding: 8px 12px;
   text-decoration: none;
-  position: relative;
   z-index: 10;
 }

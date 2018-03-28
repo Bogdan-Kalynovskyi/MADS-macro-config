@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "webpack -p",
+    "build": "webpack --env.production",
     "start": "webpack-dev-server --open"
   },
   "license": "MIT",
@@ -11,6 +11,7 @@
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.5.1",
+    "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.4",
     "eslint": "^4.2.0",
@@ -19,6 +20,7 @@
     "eslint-loader": "^1.8.0",
     "eslint-plugin-import": "^2.6.1",
     "friendly-errors-webpack-plugin": "^1.6.1",
+    "make-dir-webpack-plugin": "^0.1.0",
     "postcss-cssnext": "^3.0.2",
     "postcss-loader": "^2.0.6",
     "style-loader": "^0.18.2",

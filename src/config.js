@@ -1,11 +1,11 @@
 export default {
 	"creative": {
 		"language": {
-			"en": {
+			"English": {
 				"type": "image",
 				"url": "./img/mc.jpg"
 			},
-			"jp": {
+			"Japanese": {
 				"type": "image",
         "url": "./img/mc.jpg"
 			},
@@ -17,21 +17,25 @@ export default {
 	},
 	"headline": {
 		"language": {
-			"en": {
+			"English": {
 				"city": {
-					"Belfast": {
+					"Krakow": {
 						"weather&&day": { // attention here!
-							"Rainy&&Monday": "What a bad rainy monday",
-							"Sunny&&Friday": "sunny tgif",
+							"Rainy|Cloudy&&Monday": "What a dull Monday",
+							"Rainy|Cloudy&&Tuesday|Wednesday|Thursday": "What a bad rainy middle of week :(",
+							"Sunny|Cloudy&&Friday": "Not rainy TGIF",
 							"ANY&&Saturday": "weekend",
 							"ANY&&Sunday": "weekend",
 							"Other": "other"
 						}
 					},
-					"Other": ["random1", "random2", "random3"]
+					"Other": {
+                        "style": "color: blue",
+                        "text": ["Headline random1", "Headline random2", "Headline random3"]
+                    }
 				}
 			},
-			"jp": "マクドナルド",
+			"Japanese": "マクドナルド",
 			"Other": "McDonald"
 		}
 	},

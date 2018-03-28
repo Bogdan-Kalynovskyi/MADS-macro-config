@@ -1,38 +1,53 @@
-var path = require('path');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
-var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
+let path = require('path');
+let CopyWebpackPlugin = require('copy-webpack-plugin');
+let UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+let FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
+let CleanWebpackPlugin = require('clean-webpack-plugin');
+let MakeDirWebpackPlugin = require('make-dir-webpack-plugin');
 
-module.exports = function (env) {
-  env = {
-    production: false
-  };
 
-  var plugins = [
+module.exports = env => {
+
+  let plugins = [
     new CopyWebpackPlugin([
       { from: 'index.html', to: 'dist/index.html' },
       { from: 'data.json', to: 'dist/data.json' },
       { from: 'src/img', to: env && env.production ? 'dist/img' : 'img' },
       { from: 'src/js', to: env && env.production ? 'dist/js' : 'js' },
+      { from: 'src/main.js', to: env && env.production ? 'dist/js' : 'js' },
       { from: 'src/css', to: env && env.production ? 'dist/css' : 'css' }
+      // { from: 'src/main.css', to: env && env.production ? 'dist/css' : 'css' }
     ])
   ];
 
-  var devServer = {
+  if (env && env.production) {
+    plugins = [
+        new CleanWebpackPlugin('dist/'),
+        new MakeDirWebpackPlugin({
+            dirs: [
+                { path: './dist/js' },
+                { path: './dist/css' },
+                { path: './dist/img' }
+            ]
+        }),
+        ...plugins
+    ]
+  }
+
+  let devServer = {
     overlay: {
       warning: false,
       error: true
     }
   };
 
-  if (env.production) {
+  if (env && env.production) {
     plugins.push(new UglifyJSPlugin({
       comments: false,
       sourceMap: true
     }));
   }
-
-  if (!env.production) {
+  else {
     plugins.push(new FriendlyErrorsPlugin())
   }
 
@@ -40,8 +55,7 @@ module.exports = function (env) {
     entry: './src/main.js',
     output: {
       filename: env && env.production ? 'dist/js/main.js' : 'js/main.js',
-      sourceMapFilename: '[file].map',
-      libraryTarget: 'var',
+      sourceMapFilename: '[file].map'
     },
     devtool: env && env.production ? '' : 'cheap-eval-source-map',
     devServer: devServer,
@@ -56,7 +70,7 @@ module.exports = function (env) {
           exclude: /node_modules/,
           loader: 'eslint-loader',
           options: {
-            quiet: !env.production,
+            quiet: !(env && env.production),
             formatter: require('eslint-friendly-formatter')
           }
         },
