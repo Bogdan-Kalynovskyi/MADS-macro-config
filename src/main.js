@@ -20,7 +20,7 @@ class AdUnit extends Mads {
         const conditionName = input.id;
         conditions[conditionName] = input.value;
       }
-      setTimeout(() => this.doInit(conditions), 300);
+      setTimeout(() => this.doInit(conditions), 500);
     }
     else {
       getEnvVars.then(conditions => {
@@ -32,9 +32,13 @@ class AdUnit extends Mads {
 
 
   doInit(conditions) {
-      this.params = getParamsFromJson(json, conditions);
-      this.params = macrosInParams(this.params, conditions);
-      this.finalRender();
+    const conditionsLowercase = {};
+    for (let i in conditions) {
+        conditionsLowercase[i] = conditions[i].toLocaleLowerCase();
+    }
+    this.params = getParamsFromJson(json, conditionsLowercase);
+    this.params = macrosInParams(this.params, conditions);
+    this.finalRender();
   }
 
 

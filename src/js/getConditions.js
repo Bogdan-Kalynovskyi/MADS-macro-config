@@ -59,7 +59,7 @@ const getEnvironmentPromise = new Promise((resolve, reject) => {
           true);
         request.send();
       }
-    }
+    };
 
     request.open('GET', 'http://ip-api.com/json/', true);
     request.send();

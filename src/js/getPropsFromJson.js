@@ -1,10 +1,10 @@
 // const conditionNames = ['time', 'day', 'language', 'device', 'os', 'country', 'city', 'weather'];
 
 
-export function getParamsFromJson(json, conditions) {
+export function getParamsFromJson(json, conditionsLowercase) {
 
     function simpleCondition(query, branch) {
-        const conditionValue = conditions[query];
+        const conditionValue = conditionsLowercase[query];
         for (const value in branch) {
             if (value === conditionValue) {
                 return recursive(branch[value]);
@@ -17,7 +17,7 @@ export function getParamsFromJson(json, conditions) {
         const queryParts = query.split('&&');
         const conditionParts = [];
         for (let query of queryParts) {
-            conditionParts.push(conditions[query]);
+            conditionParts.push(conditionsLowercase[query]);
         }
         for (const value in branch) {
             const valueParts = value.split('&&');
@@ -42,7 +42,7 @@ export function getParamsFromJson(json, conditions) {
     }
 
     function eventuallyOther(branch) {
-        const otherBranch = branch["Other"];
+        const otherBranch = branch.other;
         if (otherBranch) {
             return recursive(otherBranch);
         }
