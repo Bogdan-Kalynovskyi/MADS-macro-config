@@ -6,7 +6,7 @@ export function getParamsFromJson(json, conditionsLowercase) {
     function simpleCondition(query, branch) {
         const conditionValue = conditionsLowercase[query];
         for (const value in branch) {
-            if (value === conditionValue) {
+            if (value.toLocaleLowerCase() === conditionValue) {
                 return recursive(branch[value]);
             }
         }
@@ -20,7 +20,7 @@ export function getParamsFromJson(json, conditionsLowercase) {
             conditionParts.push(conditionsLowercase[query]);
         }
         for (const value in branch) {
-            const valueParts = value.split('&&');
+            const valueParts = value.split('&&').map(el => el.toLowerCase());
             if (conditionCheck(conditionParts, valueParts)) {
                 return recursive(branch[value]);
             }
@@ -31,8 +31,8 @@ export function getParamsFromJson(json, conditionsLowercase) {
     function conditionCheck(conditionParts, valueParts) {
       for (let i = 0; i < conditionParts.length; i++) {
         const valuePart = valueParts[i];
-        if (valuePart !== 'ANY') {
-          const orParts = valuePart.split('|');
+        if (valuePart !== 'any') {
+          const orParts = valuePart.split('|').map(el => el.toLowerCase());
           if (orParts.indexOf(conditionParts[i]) === -1) {
             return false;
           }
@@ -42,7 +42,7 @@ export function getParamsFromJson(json, conditionsLowercase) {
     }
 
     function eventuallyOther(branch) {
-        const otherBranch = branch.other;
+        const otherBranch = branch.Other;
         if (otherBranch) {
             return recursive(otherBranch);
         }

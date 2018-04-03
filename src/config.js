@@ -7,11 +7,11 @@ export default {
 			},
 			"Japanese": {
 				"type": "image",
-        "url": "./img/mc.jpg"
+        		"url": "./img/mc.jpg"
 			},
 			"Other": {
 				"type": "image",
-        "url": "./img/mc.jpg"
+       			"url": "./img/mc.jpg"
 			}
 		}
 	},
