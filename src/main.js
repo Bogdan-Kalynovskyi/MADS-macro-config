@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 /* global window, XMLHttpRequest */
 import Mads from 'mads-custom';
-import {getText, getParamsFromJson, macrosInParams} from './js/replaceInJson';
-import getEnvVars from './js/getEnvironmentVars'
+import {getText, getParamsFromJson, macrosInParams} from './js/getPropsFromJson';
+import getEnvVars from './js/getConditions'
 
 import './main.css';
 import json from './config.js';
