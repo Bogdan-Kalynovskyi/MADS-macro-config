@@ -735,7 +735,7 @@ const isoLangs = {
 };
 
 export const getLanguageName = (code) => {
-    code = code.slice(0,2).toLocaleLowerCase();
+    code = code.slice(0,2).toLowerCase();
     const lang = isoLangs[code];
     return lang ? lang.name : undefined;
 };

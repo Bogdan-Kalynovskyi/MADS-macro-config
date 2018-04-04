@@ -6,7 +6,7 @@ export function getParamsFromJson(json, conditionsLowercase) {
     function simpleCondition(query, branch) {
         const conditionValue = conditionsLowercase[query];
         for (const value in branch) {
-            if (value.toLocaleLowerCase() === conditionValue) {
+            if (value.toLowerCase() === conditionValue) {
                 return recursive(branch[value]);
             }
         }
@@ -16,7 +16,7 @@ export function getParamsFromJson(json, conditionsLowercase) {
     function complexCondition(query, branch) {
         const queryParts = query.split('&&');
         const conditionParts = [];
-        for (let query of queryParts) {
+        for (const query of queryParts) {
             conditionParts.push(conditionsLowercase[query]);
         }
         for (const value in branch) {
@@ -79,7 +79,7 @@ export function getParamsFromJson(json, conditionsLowercase) {
 
 
    
-export function macrosInParams(params, conditions) {
+export function processMacrosInParams(params, conditions) {
     const replaceMacros = (string) => {
         for (const i in conditions) {
             string = string.replace('{{' + i + '}}', conditions[i]);
@@ -96,28 +96,23 @@ export function macrosInParams(params, conditions) {
     for (const paramName in params) {
         const param = params[paramName];
         if (typeof param === "string") {
-            params[paramName] = replaceMacros(param);
+            params[paramName] = {text: replaceMacros(param)};
         }
         else if (param instanceof Array) {
-            params[paramName] = getRandomItem(param);
+            params[paramName] = {text: getRandomItem(param)};
         }
         else {
             const text = param.text;
             if (typeof text === "string") {
-                params[paramName].text = replaceMacros(text);
+                param.text = replaceMacros(text);
             }
             else if (text instanceof Array) {
-                params[paramName].text = getRandomItem(text);
+                param.text = getRandomItem(text);
             }
         }
+
+        params[paramName].style = param.style ? ` style="${param.style}" ` : '';
     }
+
     return params;
-}
-
-
-export function getText(param) {
-    if (typeof param === "string") {
-        return param;
-    }
-    return param.text;
 }

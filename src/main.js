@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* global window, XMLHttpRequest */
 import Mads from 'mads-custom';
-import {getText, getParamsFromJson, macrosInParams} from './js/getPropsFromJson';
+import {getParamsFromJson, processMacrosInParams} from './js/getPropsFromJson';
 import getEnvVars from './js/getConditions'
 
 import './main.css';
@@ -32,12 +32,12 @@ class AdUnit extends Mads {
 
 
   doInit(conditions) {
-    const conditionsLowercase = {};
+    const conditionsLowerCase = {};
     for (let i in conditions) {
-        conditionsLowercase[i] = conditions[i].toLocaleLowerCase();
+        conditionsLowerCase[i] = conditions[i].toLowerCase();
     }
-    this.params = getParamsFromJson(json, conditionsLowercase);
-    this.params = macrosInParams(this.params, conditions);
+    this.params = getParamsFromJson(json, conditionsLowerCase);
+    this.params = processMacrosInParams(this.params, conditions);
     this.finalRender();
   }
 
@@ -59,24 +59,21 @@ class AdUnit extends Mads {
 
 
   finalRender() {
-    const style = {};
-    for (let i in this.params) {
-      style[i] = this.params[i].style ? ` style="${this.params[i].style}"` : '';
-    }
+    const ad = this.params;
 
-    const backgroundNode = this.params.creative.type === "image" ?
-      `<img id="ad-background" src="${this.params.creative.url}" alt=""${style.creative}>`
+    const backgroundNode = ad.creative.type === "image" ?
+      `<img id="ad-background" src="${ad.creative.url}" alt=""${ad.creative.style}>`
       :
-      `<video id="ad-background" width="100%" height="100%" autoplay${style.creative}>
-        <source src="${this.params.creative.url}">
+      `<video id="ad-background" width="100%" height="100%" autoplay${ad.creative.style}>
+        <source src="${ad.creative.url}">
       </video>`;
 
 
     document.getElementById('ad-container').innerHTML = `
       ${backgroundNode}
-      <h1 id="ad-headline"${style.headline}>${getText(this.params.headline)}</h1>
-      <p id="ad-description"${style.description}>${getText(this.params.description)}</p>
-      <a id="ad-cta" href="${this.params.cta.url}">${style.cta}${getText(this.params.cta)}</a>
+      <h1 id="ad-headline"${ad.headline.style}>${ad.headline.text}</h1>
+      <p id="ad-description"${ad.description.style}>${ad.description.text}</p>
+      <a id="ad-cta"${ad.cta.style} href="${ad.cta.url}">${ad.cta.text}</a>
     `;
   }
 
@@ -85,26 +82,7 @@ class AdUnit extends Mads {
     return '';
   }
 
-  events() {
-    return new Promise((resolve, reject) => {
-        try {
-          const xhr = new XMLHttpRequest();
-          xhr.addEventListener('readystatechange', () => {
-            if (xhr.readyState === 4) {
-              this.tracker('E', 'uploaded');
-              resolve('');
-            }
-          });
-
-          xhr.open('POST', 'https://www.mobileads.com/upload-image-twtbk');
-          xhr.setRequestHeader('cache-control', 'no-cache');
-
-          xhr.send();
-        } catch (e) {
-          reject(e);
-        }
-      });
-    };
+  events() {};
 
 }
 
