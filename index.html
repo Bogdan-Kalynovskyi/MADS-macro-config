@@ -12,6 +12,14 @@
     <label for="time">Time</label>
     <input id="time" onchange="window.ad = new AdUnit(true)"><br>
 
+    <label for="timeofday">Time Of Day</label>
+    <select onchange="window.ad = new AdUnit(true)" id="timeofday">
+      <option value="Morning">Morning</option>
+      <option value="Afternoon">Afternoon</option>
+      <option value="Evening">Evening</option>
+      <option value="Night">Night</option>
+    </select><br>
+
     <label for="day">Week day</label>
     <select onchange="window.ad = new AdUnit(true)" id="day">
       <option value="Monday">Monday</option>

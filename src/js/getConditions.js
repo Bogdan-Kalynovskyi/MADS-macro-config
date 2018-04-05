@@ -2,6 +2,8 @@ import {getLanguageName} from "./languageNameFromCode";
 
 const date = new Date();
 const time = date.toLocaleString('en', { hour: 'numeric', hour12: true });
+const hour = date.getHours();
+const timeOfDay = hour < 6 ? 'Night' : (hour < 12 ? 'Morning' : (hour < 18 ? 'Afternoon' : 'Evening'));
 let   language = navigator.language || navigator.userLanguage;
 // language = language.split('-')[0];
 language = getLanguageName(language);
@@ -40,6 +42,7 @@ const getEnvironmentPromise = new Promise((resolve, reject) => {
 
             resolve({
                 time,
+                timeOfDay,
                 day,
                 language,
                 device,
