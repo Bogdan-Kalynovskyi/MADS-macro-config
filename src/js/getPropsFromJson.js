@@ -1,6 +1,8 @@
 // const conditionNames = ['time', 'day', 'language', 'device', 'os', 'country', 'city', 'weather'];
 
 
+import {translations} from "./translations";
+
 export function getParamsFromJson(json, conditionsLowercase) {
 
     function simpleCondition(query, branch) {
@@ -81,8 +83,20 @@ export function getParamsFromJson(json, conditionsLowercase) {
    
 export function processMacrosInParams(params, conditions) {
     const replaceMacros = (string) => {
+        let language = params.language;
+        if (language === "English") {
+            language = false;
+        }
         for (const i in conditions) {
-            string = string.replace('{{' + i + '}}', conditions[i]);
+            const condition = conditions[i];
+            let translation;
+            if (language || translations[language]) {
+                translation = translations[language][condition] || condition;
+            }
+            else {
+                translation = condition;
+            }
+            string = string.replace('{{' + i + '}}', translation);
         }
         return string;
     };
