@@ -39,7 +39,12 @@ export default {
 			"Other": "McDonald"
 		}
 	},
-	"description": "It's {{day}}! THIS will always be english",
+	"description": {
+		"timeOfDay": {
+			"Morning": "good morning!!!",
+			"Other": "It's {{day}} {{timeOfDay}} (everything except morning)"
+		}
+    },
 	"cta": {
 		"os": {
 			"iOS": {

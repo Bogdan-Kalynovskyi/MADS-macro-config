@@ -23,10 +23,7 @@ class AdUnit extends Mads {
       setTimeout(() => this.doInit(conditions), 500);
     }
     else {
-      getEnvVars.then(conditions => {
-        this.doInit(conditions);
-        this.initForm(conditions);
-      });
+      getEnvVars.then(conditions => this.doInit(conditions));
     }
   }
 
@@ -39,6 +36,7 @@ class AdUnit extends Mads {
     this.params = getParamsFromJson(json, conditionsLowerCase);
     this.params = processMacrosInParams(this.params, conditions);
     this.finalRender();
+    this.initForm(conditions);
   }
 
 
