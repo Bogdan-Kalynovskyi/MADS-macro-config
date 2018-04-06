@@ -96,6 +96,7 @@ export function processMacrosInParams(params, conditions) {
             else {
                 translation = condition;
             }
+            //todo this can be optimized
             string = string.replace('{{' + i + '}}', translation);
         }
         return string;
@@ -123,6 +124,10 @@ export function processMacrosInParams(params, conditions) {
             else if (text instanceof Array) {
                 param.text = getRandomItem(text);
             }
+        }
+
+        if (param.url) {
+            param.url = replaceMacros(param.url);
         }
 
         params[paramName].style = param.style ? ` style="${param.style}" ` : '';
