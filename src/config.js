@@ -3,15 +3,15 @@ export default {
 		"language": {
 			"English": {
 				"type": "image",
-				"url": "./img/mc.jpg"
+				"url": "./img/mc.jpg?city={{city}}"
 			},
 			"Japanese": {
 				"type": "image",
-        		"url": "./img/mc.jpg"
+        		"url": "./img/mc.jpg?city={{city}}"
 			},
 			"Other": {
 				"type": "image",
-       			"url": "./img/mc.jpg"
+       			"url": "./img/mc.jpg?city={{city}}"
 			}
 		}
 	},
